@@ -34,8 +34,9 @@ $(call inherit-product, vendor/bliss/config/common_full_phone.mk)
 
 # Inherit AOSP product configuration
 TARGET_BOOT_ANIMATION_RES := 1080
-TARGET_GAPPS_ARCH := arm64
-IS_PHONE := true
+
+#Inherit Gapps
+$(call inherit-product-if-exists, vendor/gapps/gapps.mk)
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME="platina" \
