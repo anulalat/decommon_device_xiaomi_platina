@@ -33,7 +33,7 @@ $(call inherit-product, device/xiaomi/platina/device.mk)
 $(call inherit-product, vendor/bliss/config/common_full_phone.mk)
 
 # Inherit AOSP product configuration
-TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_BOOT_ANIMATION_RES := 1440
 
 #Inherit Gapps
 $(call inherit-product-if-exists, vendor/gapps/gapps.mk)
