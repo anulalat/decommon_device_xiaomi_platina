@@ -50,7 +50,7 @@ BLISS_BUILDTYPE=OFFICIAL
 
 # Device Maintainer
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bliss.maintainer=Hanif Ardhani
+    ro.bliss.maintainer=HanifArdhani
 
 # Device identifier
 PRODUCT_BRAND := Xiaomi
