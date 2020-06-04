@@ -3341,7 +3341,7 @@ int IPACM_Lan::handle_uplink_filter_rule(ipacm_ext_prop *prop, ipa_ip_type iptyp
 
 	flt_index.retain_header_valid = 1;
 	flt_index.retain_header = 0;
-	flt_index.embedded_call_mux_id_valid = 1;	
+	flt_index.embedded_call_mux_id_valid = 1;
 	qmap_id = IPACM_Iface::ipacmcfg->GetQmapId();
 	xlat_debug = IPACM_Wan::getXlat_Mux_Id();
 	flt_index.embedded_call_mux_id = qmap_id;
@@ -3481,7 +3481,7 @@ int IPACM_Lan::handle_uplink_filter_rule(ipacm_ext_prop *prop, ipa_ip_type iptyp
 		else
 		{
 			if ((flt_rule_entry.rule.eq_attrib.num_offset_meq_128 >= 0) &&
-				(flt_rule_entry.rule.eq_attrib.num_offset_meq_128 
+				(flt_rule_entry.rule.eq_attrib.num_offset_meq_128
 					< IPA_IPFLTR_NUM_MEQ_128_EQNS))
 			{
 				flt_rule_entry.rule.eq_attrib.num_offset_meq_128++;
@@ -4962,7 +4962,7 @@ int IPACM_Lan::eth_bridge_add_rt_rule(uint8_t *mac, char *rt_tbl_name, uint32_t 
 				IPACMDBG_H("wigig DL pipe %d\n", ep);
 				rt_rule.rule.dst = (enum ipa_client_type)ep;
 			}
-			else 
+			else
 #endif
 			if(ipa_if_cate == WLAN_IF && IPACM_Iface::ipacmcfg->isMCC_Mode)
 			{
