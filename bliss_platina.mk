@@ -48,10 +48,6 @@ PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 # Build type
 BLISS_BUILDTYPE=OFFICIAL
 
-# Device Maintainer
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.bliss.maintainer=HanifArdhani
-
 # Device identifier
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MANUFACTURER := Xiaomi
