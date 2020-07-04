@@ -22,9 +22,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/bliss_platina.mk
+    $(LOCAL_DIR)/lineage_platina.mk
 
 COMMON_LUNCH_CHOICES := \
-    bliss_platina-eng \
-    bliss_platina-userdebug \
-    bliss_platina-user
+    lineage_platina-eng \
+    lineage_platina-userdebug \
+    lineage_platina-user
