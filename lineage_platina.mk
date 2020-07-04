@@ -29,8 +29,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 # Inherit device configuration
 $(call inherit-product, device/xiaomi/platina/device.mk)
 
-# Inherit some common Bliss ROMS stuff.
-$(call inherit-product, vendor/bliss/config/common_full_phone.mk)
+# Inherit some common ROMS stuff.
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # Inherit AOSP product configuration
 TARGET_BOOT_ANIMATION_RES := 1440
@@ -45,12 +45,9 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 TARGET_VENDOR_PRODUCT_NAME := platina
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
-# Build type
-BLISS_BUILDTYPE=OFFICIAL
-
 # Device identifier
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MANUFACTURER := Xiaomi
-PRODUCT_NAME := bliss_platina
+PRODUCT_NAME := lineage_platina
 PRODUCT_DEVICE := platina
 PRODUCT_MODEL := MI 8 Lite
