@@ -406,6 +406,10 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml \
     $(DEVICE_PATH)/configs/perf/whitelistedapps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/perf/whitelistedapps.xml
 
+# Recorder
+PRODUCT_PACKAGES += \
+    KimciRecorder
+
 # QMI
 PRODUCT_PACKAGES += \
     libjson
