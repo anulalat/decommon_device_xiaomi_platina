@@ -22,9 +22,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/colt_platina.mk
+    $(LOCAL_DIR)/radeon_platina.mk
 
 COMMON_LUNCH_CHOICES := \
-    colt_platina-eng \
-    colt_platina-userdebug \
-    colt_platina-user
+    radeon_platina-eng \
+    radeon_platina-userdebug \
+    radeon_platina-user
