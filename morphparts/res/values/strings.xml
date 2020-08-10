@@ -217,12 +217,6 @@
     <string name="kcal_presets">@string/presets_dialog_title</string>
     <string name="kcal_reset">Reset</string>
 
-    <!-- Label for feature switch  -->
-    <string name="switch_bar_on">On</string>
-
-    <!-- Label for feature switch -->
-    <string name="switch_bar_off">Off</string>
-
     <!-- Log Tile -->
     <string name="quick_settings_log_tile_label">LogTile</string>
     <string name="quick_settings_log_tile_dialog_title">Options</string>
