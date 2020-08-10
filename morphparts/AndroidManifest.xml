@@ -43,7 +43,28 @@
         </receiver>
         <activity
             android:name=".DeviceSettingsActivity"
-            android:label="@string/morphparts_title">
+            android:exported="false"
+            android:icon="@drawable/ic_morph"
+            android:label="@string/morphparts_title"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.android.settings.dismiss"
+                android:value="9,13,30" />
+            <meta-data
+                android:name="com.android.settings.bg.hint"
+                android:resource="@color/homepage_parts_background" />
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.homepage" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/advanced_settings_summary" />
         </activity>
 
         <activity

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Asus-SDM660 Project
+ * Copyright (C) 2017 The Lineageos project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 
 package com.xiaomi.morphparts;
+
+import android.os.SystemProperties;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -32,11 +34,10 @@ import java.io.IOException;
 import android.util.Log;
 import java.lang.Runtime;
 
-public class FileUtils {
+class FileUtils {
 
     private static final String TAG = "FileUtils";
-
-
+    
     // Magisk app name
     private static final String MAGISK_APP = "com.topjohnwu.magisk";
 
@@ -59,22 +60,6 @@ public class FileUtils {
             try {
                 FileOutputStream fos = new FileOutputStream(new File(path));
                 fos.write(Integer.toString(value).getBytes());
-                fos.flush();
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    static void setValue(String path, boolean value) {
-        if (fileWritable(path)) {
-            if (path == null) {
-                return;
-            }
-            try {
-                FileOutputStream fos = new FileOutputStream(new File(path));
-                fos.write((value ? "1" : "0").getBytes());
                 fos.flush();
                 fos.close();
             } catch (IOException e) {
@@ -162,35 +147,40 @@ public class FileUtils {
         return defValue;
     }
 
-    public static String readLine(String filename) {
-        if (filename == null) {
-            return null;
-        }
-        BufferedReader br = null;
-        String line;
-        try {
-            br = new BufferedReader(new FileReader(filename), 1024);
-            line = br.readLine();
-        } catch (IOException e) {
-            return null;
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-        }
-        return line;
-    }
-
-    static boolean getFileValueAsBoolean(String filename, boolean defValue) {
+    static boolean getFilesValueAsBoolean(String filename, boolean defValue) {
         String fileValue = readLine(filename);
         if (fileValue != null) {
-            return !fileValue.equals("0");
+            return !fileValue.equals("N");
         }
         return defValue;
+    }
+
+    static void setProp(String prop, boolean value) {
+        if (value) {
+            SystemProperties.set(prop, "1");
+        } else {
+            SystemProperties.set(prop, "0");
+        }
+    }
+
+    static boolean getProp(String prop, boolean defaultValue) {
+        return SystemProperties.getBoolean(prop, defaultValue);
+    }
+
+    static void setStringProp(String prop, String value) {
+        SystemProperties.set(prop, value);
+    }
+
+    static String getStringProp(String prop, String defaultValue) {
+        return SystemProperties.get(prop, defaultValue);
+    }
+
+    static void setintProp(String prop, int value) {
+        SystemProperties.set(prop, String.valueOf(value));
+    }
+
+    static int getintProp(String prop, int defaultValue) {
+        return SystemProperties.getInt(prop, defaultValue);
     }
 
     public static boolean isPackageInstalled(Context context, String pkg, boolean ignoreState) {
