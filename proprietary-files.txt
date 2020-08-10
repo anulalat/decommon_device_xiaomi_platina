@@ -2562,3 +2562,8 @@ vendor/lib/libwfdhaldsmanager.so|ad8747952cc5f85a68b4eab669897c82b086da05
 vendor/lib/libwfdhdcpcp.so|1a3afba4bd6aa7d23c9c7b08669652a1b341841f
 vendor/lib/libwfdmmservice.so|d25a796600eb252d133c1370f3c62adc7e9a3d03
 vendor/lib/libwfdmodulehdcpsession.so|22b64660d1c0ca946960ecde14795e4de073ccff
+
+# morphparts
+# Dirac
+vendor/lib/libDiracAPI_SHARED.so
+vendor/etc/diracmobile.config

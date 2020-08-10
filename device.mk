@@ -546,6 +546,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     WfdCommon
 
+# morphparts
+PRODUCT_PACKAGES += \
+    morphparts \
+    init.morphparts.rc \
+    init.morphparts.sh
+
 # Vendor files
 $(call inherit-product, vendor/xiaomi/platina/platina-vendor.mk)
 
