@@ -30,11 +30,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 $(call inherit-product, device/xiaomi/platina/device.mk)
 
 # Inherit AOSP product configuration
-TARGET_BOOT_ANIMATION_RES := 1080x2280
+TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_INCLUDE_WIFI_EXT := true
+TARGET_GAPPS_ARCH := arm64
+TARGET_INCLUDE_STOCK_ARCORE := true
 
 # Inherit some common Colt stuff.
-$(call inherit-product, vendor/colt/config/common_full_phone.mk)
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # Inherit MIUI Camera
 $(call inherit-product, vendor/xiaomi/MiuiCamera/config.mk)
@@ -52,10 +54,6 @@ PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 # Device identifier
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MANUFACTURER := Xiaomi
-PRODUCT_NAME := colt_platina
+PRODUCT_NAME := aosp_platina
 PRODUCT_DEVICE := platina
 PRODUCT_MODEL := MI 8 Lite
-
-# ColtOS stuffs
-COLT_BUILD_TYPE := Official
-COLT_DEVICE_MAINTAINER := Curse
