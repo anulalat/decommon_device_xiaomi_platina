@@ -551,3 +551,17 @@ PRODUCT_DEVICE := platina
 PRODUCT_MODEL := Mi 8 Lite (AOSP)
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MANUFACTURER := Xiaomi
+
+# MorphParts
+PRODUCT_PACKAGES += \
+    MorphParts \
+    init.gpuboost.rc \
+    init.gpuboost.sh \
+    init.cpuboost.rc \
+    init.cpuboost.sh \
+    init.morphparts.rc \
+    init.morphparts.sh \
+    init.spectrum.rc \
+    init.spectrum.sh \
+    vendor.lineage.touch@1.0-service.xiaomi
+
