@@ -564,4 +564,3 @@ PRODUCT_PACKAGES += \
     init.spectrum.rc \
     init.spectrum.sh \
     vendor.lineage.touch@1.0-service.xiaomi
-
