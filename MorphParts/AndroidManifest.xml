@@ -27,7 +27,6 @@
 
     <uses-sdk android:minSdkVersion="27" />
 
-    <protected-broadcast android:name="com.xiaomi.morphparts.UPDATE_SETTINGS" />
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
     <protected-broadcast android:name="com.xiaomi.morphparts.CUST_UPDATE" />
 
@@ -153,11 +152,6 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
-
-        <activity
-            android:name=".TouchscreenGestureSettings"
-            android:label="@string/touchscreen_gesture_settings_title">
-        </activity>
 
         <service android:name="com.xiaomi.morphparts.SensorsDozeService"
                  android:permission="SensorsDozeService">
