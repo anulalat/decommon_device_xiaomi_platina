@@ -279,10 +279,6 @@
             android:title="@string/fastcharge_title"
             android:icon="@drawable/ic_usb_fastcharge"
             android:summary="@string/fastcharge_summary" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-            android:title="@string/touch_gestures">
 
         <PreferenceScreen
             android:key="ambient_display_gestures"
