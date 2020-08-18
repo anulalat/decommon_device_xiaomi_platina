@@ -12,17 +12,17 @@ public class VibratorStrengthPreference extends SecureSettingCustomSeekBarPrefer
 
     private static final long testVibrationPattern[] = {0,250};
 
-    public VibrationSeekBarPreference(Context context, AttributeSet attrs, int defStyle) {
+    public VibratorStrengthPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public VibrationSeekBarPreference(Context context, AttributeSet attrs) {
+    public VibratorStrengthPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public VibrationSeekBarPreference(Context context) {
+    public VibratorStrengthPreference(Context context) {
         super(context, null);
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
