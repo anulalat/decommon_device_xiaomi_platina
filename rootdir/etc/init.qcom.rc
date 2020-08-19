@@ -309,17 +309,6 @@ on boot
     chown system system /sys/module/msm_thermal/vdd_restriction/enabled
     chmod 0660 /sys/module/msm_thermal/vdd_restriction/enabled
 
-    # Vibration
-    chown system system /sys/class/leds/vibrator/vmax_override
-    chmod 0660 /sys/class/leds/vibrator/vmax_override
-    write /sys/class/leds/vibrator/vmax_override 1
-    chown system system /sys/class/leds/vibrator/vmax_mv_user
-    chmod 0660 /sys/class/leds/vibrator/vmax_mv_user
-    chown system system /sys/class/leds/vibrator/vmax_mv_strong
-    chmod 0660 /sys/class/leds/vibrator/vmax_mv_strong
-    chown system system /sys/class/leds/vibrator/vmax_mv_call
-    chmod 0660 /sys/class/leds/vibrator/vmax_mv_call
-
     # Allow access to emmc rawdump block partition and dload sysfs node
     chown root system /dev/block/bootdevice/by-name/rawdump
     chmod 0660 /dev/block/bootdevice/by-name/rawdump
