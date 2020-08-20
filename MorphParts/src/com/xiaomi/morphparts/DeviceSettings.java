@@ -18,12 +18,6 @@
 
 package com.xiaomi.morphparts;
 
-import android.os.SELinux;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-import com.xiaomi.morphparts.SuShell;
-import com.xiaomi.morphparts.SuTask;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.Context;
@@ -46,8 +40,6 @@ import com.xiaomi.morphparts.AmbientGesturePreferenceActivity;
 
 public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
-
-    private static final String TAG = "MorphParts";
 
     public static final String PREF_BACKLIGHT_DIMMER = "backlight_dimmer";
     public static final String BACKLIGHT_DIMMER_PATH = "/sys/module/mdss_fb/parameters/backlight_dimmer";
@@ -115,10 +107,6 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String PREF_EARPIECE_GAIN = "earpiece_gain";
     public static final String EARPIECE_GAIN_PATH = "/sys/kernel/sound_control/earpiece_gain";
 
-    private static final String SELINUX_CATEGORY = "selinux";
-    private static final String PREF_SELINUX_MODE = "selinux_mode";
-    private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
-
     private VibratorStrengthPreference mVibratorStrength;
     private SecureSettingListPreference mSPECTRUM;
     private CustomSeekBarPreference mHeadphoneGain;
@@ -142,8 +130,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private static Context mContext;
     private CustomSeekBarPreference mEarpieceGain;
     private Preference mAmbientPref;
-    private SwitchPreference mSelinuxMode;
-    private SwitchPreference mSelinuxPersistence;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -297,18 +283,6 @@ public class DeviceSettings extends PreferenceFragment implements
         SwitchPreference fpsInfo = (SwitchPreference) findPreference(PREF_KEY_FPS_INFO);
         fpsInfo.setChecked(prefs.getBoolean(PREF_KEY_FPS_INFO, false));
         fpsInfo.setOnPreferenceChangeListener(this);
-
-        Preference selinuxCategory = findPreference(SELINUX_CATEGORY);
-        mSelinuxMode = (SwitchPreference) findPreference(PREF_SELINUX_MODE);
-        mSelinuxMode.setChecked(SELinux.isSELinuxEnforced());
-        mSelinuxMode.setOnPreferenceChangeListener(this);
-
-        mSelinuxPersistence =
-        (SwitchPreference) findPreference(PREF_SELINUX_PERSISTENCE);
-        mSelinuxPersistence.setOnPreferenceChangeListener(this);
-        mSelinuxPersistence.setChecked(getContext()
-        .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE)
-        .contains(PREF_SELINUX_MODE));
     }
 
     @Override
@@ -376,19 +350,6 @@ public class DeviceSettings extends PreferenceFragment implements
                 FileUtils.setStringProp(CPUBOOST_SYSTEM_PROPERTY, (String) value);
                 break;
 
-            case PREF_SELINUX_MODE:
-                  if (preference == mSelinuxMode) {
-                  boolean enable = (Boolean) value;
-                  new SwitchSelinuxTask(getActivity()).execute(enable);
-                  setSelinuxEnabled(enable, mSelinuxPersistence.isChecked());
-                  return true;
-                } else if (preference == mSelinuxPersistence) {
-                  setSelinuxEnabled(mSelinuxMode.isChecked(), (Boolean) value);
-                  return true;
-                }
-
-                break;
-
             case PERF_MSM_THERMAL:
                 FileUtils.setValue(MSM_THERMAL_PATH, (boolean) value);
                 break;
@@ -433,46 +394,6 @@ public class DeviceSettings extends PreferenceFragment implements
         }
         return true;
     }
-
-        private void setSelinuxEnabled(boolean status, boolean persistent) {
-          SharedPreferences.Editor editor = getContext()
-              .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE).edit();
-          if (persistent) {
-            editor.putBoolean(PREF_SELINUX_MODE, status);
-          } else {
-            editor.remove(PREF_SELINUX_MODE);
-          }
-          editor.apply();
-          mSelinuxMode.setChecked(status);
-        }
-
-        private class SwitchSelinuxTask extends SuTask<Boolean> {
-          public SwitchSelinuxTask(Context context) {
-            super(context);
-          }
-          @Override
-          protected void sudoInBackground(Boolean... params) throws SuShell.SuDeniedException {
-            if (params.length != 1) {
-              Log.e(TAG, "SwitchSelinuxTask: invalid params count");
-              return;
-            }
-            if (params[0]) {
-              SuShell.runWithSuCheck("setenforce 1");
-            } else {
-              SuShell.runWithSuCheck("setenforce 0");
-            }
-          }
-
-          @Override
-          protected void onPostExecute(Boolean result) {
-
-            super.onPostExecute(result);
-            if (!result) {
-              // Did not work, so restore actual value
-              setSelinuxEnabled(SELinux.isSELinuxEnforced(), mSelinuxPersistence.isChecked());
-            }
-          }
-        }
 
     private boolean isAppNotInstalled(String uri) {
         PackageManager packageManager = getContext().getPackageManager();
