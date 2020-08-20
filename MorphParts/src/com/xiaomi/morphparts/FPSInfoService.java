@@ -57,7 +57,7 @@ public class FPSInfoService extends Service {
     private final String TAG = "FPSInfoService";
     private String mFps = null;
 
-    private static final String MEASURED_FPS = "/sys/class/drm/sde-crtc-0/measured_fps";
+    private static final String MEASURED_FPS = "/sys/devices/virtual/graphics/fb0/measured_fps";
 
     private IDreamManager mDreamManager;
 
