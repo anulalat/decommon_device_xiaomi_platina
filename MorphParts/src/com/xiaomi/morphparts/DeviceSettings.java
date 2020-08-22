@@ -33,7 +33,6 @@ import androidx.preference.PreferenceCategory;
 import com.xiaomi.morphparts.CustomSeekBarPreference;
 import com.xiaomi.morphparts.SecureSettingListPreference;
 import com.xiaomi.morphparts.SecureSettingSwitchPreference;
-import com.xiaomi.morphparts.LedBlinkPreference;
 import com.xiaomi.morphparts.AmbientGesturePreferenceActivity;
 
 public class DeviceSettings extends PreferenceFragment implements
