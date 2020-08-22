@@ -138,9 +138,6 @@ public class DeviceSettings extends PreferenceFragment implements
         mHeadphoneGain = (CustomSeekBarPreference) findPreference(PREF_HEADPHONE_GAIN);
         mHeadphoneGain.setOnPreferenceChangeListener(this);
 
-        mSpeakerGain = (CustomSeekBarPreference) findPreference(PREF_SPEAKER_GAIN);
-        mSpeakerGain.setOnPreferenceChangeListener(this);
-
         if (FileUtils.fileWritable(USB_FASTCHARGE_PATH)) {
             mFastcharge = (SecureSettingSwitchPreference) findPreference(PREF_USB_FASTCHARGE);
             mFastcharge.setEnabled(Fastcharge.isSupported());
@@ -229,10 +226,6 @@ public class DeviceSettings extends PreferenceFragment implements
 
             case PREF_HEADPHONE_GAIN:
                 FileUtils.setValue(HEADPHONE_GAIN_PATH, value + " " + value);
-                break;
-
-            case PREF_SPEAKER_GAIN:
-                FileUtils.setValue(SPEAKER_GAIN_PATH, (int) value);
                 break;
 
             case PREF_GPUBOOST:
