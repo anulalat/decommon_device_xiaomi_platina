@@ -34,8 +34,6 @@ import com.xiaomi.morphparts.CustomSeekBarPreference;
 import com.xiaomi.morphparts.SecureSettingListPreference;
 import com.xiaomi.morphparts.SecureSettingSwitchPreference;
 import com.xiaomi.morphparts.LedBlinkPreference;
-import com.xiaomi.morphparts.VibratorStrengthPreference;
-import com.xiaomi.morphparts.YellowFlashPreference;
 import com.xiaomi.morphparts.AmbientGesturePreferenceActivity;
 
 public class DeviceSettings extends PreferenceFragment implements
@@ -44,24 +42,11 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String PREF_BACKLIGHT_DIMMER = "backlight_dimmer";
     public static final String BACKLIGHT_DIMMER_PATH = "/sys/module/mdss_fb/parameters/backlight_dimmer";
 
-    public static final String VIBRATION_KEY = "vtg";
-    public static final String PREF_VIBRATION_SYSTEM_STRENGTH = "vibration_system";
-    public static final String PREF_VIBRATION_NOTIFICATION_STRENGTH = "vibration_notification";
-    public static final String PREF_VIBRATION_CALL_STRENGTH = "vibration_call";
-    public static final String VIBRATION_SYSTEM_PATH = "/sys/class/timed_output/vibrator/vmax_mv_user";
-    public static final String VIBRATION_NOTIFICATION_PATH = "/sys/class/timed_output/vibrator/vmax_mv_strong";
-    public static final String VIBRATION_CALL_PATH = "/sys/class/timed_output/vibrator/vmax_mv_call";
-    public static final int MIN_VIBRATION = 116;
-    public static final int MAX_VIBRATION = 3596;
-
     public static final String PREF_SPECTRUM = "spectrum";
     public static final String SPECTRUM_SYSTEM_PROPERTY = "persist.spectrum.profile";
 
     public static final String PREF_HEADPHONE_GAIN = "headphone_gain";
     public static final String HEADPHONE_GAIN_PATH = "/sys/kernel/sound_control/headphone_gain";
-    public static final String PREF_MICROPHONE_GAIN = "microphone_gain";
-    public static final String MICROPHONE_GAIN_PATH = "/sys/kernel/sound_control/mic_gain";
-    public static final String PREF_SPEAKER_GAIN = "speaker_gain";
     public static final String SPEAKER_GAIN_PATH = "/sys/kernel/sound_control/speaker_gain";
     public static final String CATEGORY_FASTCHARGE = "usb_fastcharge";
     public static final String PREF_USB_FASTCHARGE = "fastcharge";
@@ -75,18 +60,6 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String GPUBOOST_SYSTEM_PROPERTY = "persist.gpuboost.profile";
     public static final String PREF_CPUBOOST = "cpuboost";
     public static final String CPUBOOST_SYSTEM_PROPERTY = "persist.cpuboost.profile";
-
-    public static final String PERF_YELLOW_TORCH_BRIGHTNESS = "yellow_torch_brightness";
-    public static final String PERF_WHITE_TORCH_BRIGHTNESS = "white_torch_brightness";
-    public static final String TORCH_YELLOW_BRIGHTNESS_PATH = "/sys/devices/soc/200f000.qcom," +
-            "spmi/spmi-0/spmi0-03/200f000.qcom,spmi:qcom,pmi8950@3:qcom,leds@d300/leds/led:torch_0/max_brightness";
-    public static final String TORCH_WHITE_BRIGHTNESS_PATH = "/sys/devices/soc/200f000.qcom," +
-            "spmi/spmi-0/spmi0-03/200f000.qcom,spmi:qcom,pmi8950@3:qcom,leds@d300/leds/led:torch_1/max_brightness";
-
-    public static final String PREF_CHARGING_LED = "charging_led";
-    public static final String CHARGING_LED_PATH = "/sys/devices/soc/leds-atc-20" +
-            "/driver/leds-atc-20/leds/charging/max_brightness";
-    public static final String KEY_FLASH = "yellow_flash";
 
     public static final String HIGH_PERF_AUDIO = "highperfaudio";
     public static final String HIGH_AUDIO_PATH = "/sys/module/snd_soc_wcd9330/parameters/high_perf_mode";
@@ -104,22 +77,14 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String PREF_TCP = "tcpcongestion";
     public static final String TCP_SYSTEM_PROPERTY = "persist.tcp.profile";
 
-    public static final String PREF_EARPIECE_GAIN = "earpiece_gain";
-    public static final String EARPIECE_GAIN_PATH = "/sys/kernel/sound_control/earpiece_gain";
-
-    private VibratorStrengthPreference mVibratorStrength;
     private SecureSettingListPreference mSPECTRUM;
     private CustomSeekBarPreference mHeadphoneGain;
-    private CustomSeekBarPreference mMicrophoneGain;
     private CustomSeekBarPreference mSpeakerGain;
     private SecureSettingSwitchPreference mFastcharge;
     private SecureSettingSwitchPreference mBacklightDimmer;
     private SecureSettingSwitchPreference mTouchboost;
     private SecureSettingListPreference mGPUBOOST;
     private SecureSettingListPreference mCPUBOOST;
-    private CustomSeekBarPreference mTorchBrightness;
-    private LedBlinkPreference mLedBlink;
-    private YellowFlashPreference mYellowFlash;
     private SecureSettingSwitchPreference mHighAudio;
     private SecureSettingSwitchPreference mMsmThermal;
     private SecureSettingSwitchPreference mCoreControl;
@@ -128,7 +93,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private SecureSettingListPreference mLKM;
     private SecureSettingListPreference mTCP;
     private static Context mContext;
-    private CustomSeekBarPreference mEarpieceGain;
     private Preference mAmbientPref;
 
     @Override
@@ -163,17 +127,6 @@ public class DeviceSettings extends PreferenceFragment implements
             getPreferenceScreen().removePreference(findPreference(PREF_BACKLIGHT_DIMMER));
         }
 
-        VibratorStrengthPreference vibrationSystemStrength = (VibratorStrengthPreference) findPreference(PREF_VIBRATION_SYSTEM_STRENGTH);
-        vibrationSystemStrength.setEnabled(FileUtils.fileWritable(VIBRATION_SYSTEM_PATH));
-        vibrationSystemStrength.setOnPreferenceChangeListener(this);
-
-        VibratorStrengthPreference vibrationNotificationStrength = (VibratorStrengthPreference) findPreference(PREF_VIBRATION_NOTIFICATION_STRENGTH);
-        vibrationNotificationStrength.setEnabled(FileUtils.fileWritable(VIBRATION_NOTIFICATION_PATH));
-        vibrationNotificationStrength.setOnPreferenceChangeListener(this);
-
-        VibratorStrengthPreference vibrationCallStrength = (VibratorStrengthPreference) findPreference(PREF_VIBRATION_CALL_STRENGTH);
-        vibrationCallStrength.setEnabled(FileUtils.fileWritable(VIBRATION_CALL_PATH));
-        vibrationCallStrength.setOnPreferenceChangeListener(this);
 
         if (FileUtils.fileWritable(HIGH_AUDIO_PATH)) {
             mHighAudio = (SecureSettingSwitchPreference) findPreference(HIGH_PERF_AUDIO);
@@ -185,9 +138,6 @@ public class DeviceSettings extends PreferenceFragment implements
 
         mHeadphoneGain = (CustomSeekBarPreference) findPreference(PREF_HEADPHONE_GAIN);
         mHeadphoneGain.setOnPreferenceChangeListener(this);
-
-        mMicrophoneGain = (CustomSeekBarPreference) findPreference(PREF_MICROPHONE_GAIN);
-        mMicrophoneGain.setOnPreferenceChangeListener(this);
 
         mSpeakerGain = (CustomSeekBarPreference) findPreference(PREF_SPEAKER_GAIN);
         mSpeakerGain.setOnPreferenceChangeListener(this);
@@ -220,24 +170,6 @@ public class DeviceSettings extends PreferenceFragment implements
         mCPUBOOST.setSummary(mCPUBOOST.getEntry());
         mCPUBOOST.setOnPreferenceChangeListener(this);
 
-        CustomSeekBarPreference torch_yellow = (CustomSeekBarPreference) findPreference(PERF_YELLOW_TORCH_BRIGHTNESS);
-        torch_yellow.setEnabled(FileUtils.fileWritable(TORCH_YELLOW_BRIGHTNESS_PATH));
-        torch_yellow.setOnPreferenceChangeListener(this);
-
-        CustomSeekBarPreference torch_white = (CustomSeekBarPreference) findPreference(PERF_WHITE_TORCH_BRIGHTNESS);
-        torch_white.setEnabled(FileUtils.fileWritable(TORCH_WHITE_BRIGHTNESS_PATH));
-        torch_white.setOnPreferenceChangeListener(this);
-
-        mLedBlink = (LedBlinkPreference) findPreference(PREF_CHARGING_LED);
-        if (mLedBlink != null) {
-            mLedBlink.setEnabled(LedBlinkPreference.isSupported());
-        }
-
-        mYellowFlash = (YellowFlashPreference) findPreference(KEY_FLASH);
-        if (mYellowFlash != null) {
-            mYellowFlash.setEnabled(YellowFlashPreference.isSupported());
-        }
-
         if (FileUtils.fileWritable(MSM_THERMAL_PATH)) {
             mMsmThermal = (SecureSettingSwitchPreference) findPreference(PERF_MSM_THERMAL);
             mMsmThermal.setChecked(FileUtils.getFilesValueAsBoolean(MSM_THERMAL_PATH, true));
@@ -266,9 +198,6 @@ public class DeviceSettings extends PreferenceFragment implements
         mCPUCORE.setValue(FileUtils.getStringProp(CPUCORE_SYSTEM_PROPERTY, "0"));
         mCPUCORE.setSummary(mCPUCORE.getEntry());
         mCPUCORE.setOnPreferenceChangeListener(this);
-
-        mEarpieceGain = (CustomSeekBarPreference) findPreference(PREF_EARPIECE_GAIN);
-        mEarpieceGain.setOnPreferenceChangeListener(this);
 
         mLKM = (SecureSettingListPreference) findPreference(PREF_LKM);
         mLKM.setValue(FileUtils.getStringProp(LKM_SYSTEM_PROPERTY, "0"));
@@ -299,43 +228,12 @@ public class DeviceSettings extends PreferenceFragment implements
                 FileUtils.setValue(HIGH_AUDIO_PATH, (boolean) value);
                 break;
 
-            case PREF_VIBRATION_SYSTEM_STRENGTH:
-                double VibrationSystemValue = (int) value / 100.0 * (MAX_VIBRATION - MIN_VIBRATION) + MIN_VIBRATION;
-                FileUtils.setValue(VIBRATION_SYSTEM_PATH, VibrationSystemValue);
-                break;
-
-            case PREF_VIBRATION_NOTIFICATION_STRENGTH:
-                double VibrationNotificationValue = (int) value / 100.0 * (MAX_VIBRATION - MIN_VIBRATION) + MIN_VIBRATION;
-                FileUtils.setValue(VIBRATION_NOTIFICATION_PATH, VibrationNotificationValue);
-                break;
-
-            case PREF_VIBRATION_CALL_STRENGTH:
-                double VibrationCallValue = (int) value / 100.0 * (MAX_VIBRATION - MIN_VIBRATION) + MIN_VIBRATION;
-                FileUtils.setValue(VIBRATION_CALL_PATH, VibrationCallValue);
-                break;
-
-            case PERF_YELLOW_TORCH_BRIGHTNESS:
-                FileUtils.setValue(TORCH_YELLOW_BRIGHTNESS_PATH, (int) value);
-                break;
-
-            case PERF_WHITE_TORCH_BRIGHTNESS:
-                FileUtils.setValue(TORCH_WHITE_BRIGHTNESS_PATH, (int) value);
-                break;
-
             case PREF_HEADPHONE_GAIN:
                 FileUtils.setValue(HEADPHONE_GAIN_PATH, value + " " + value);
                 break;
 
-            case PREF_MICROPHONE_GAIN:
-                FileUtils.setValue(MICROPHONE_GAIN_PATH, (int) value);
-                break;
-
             case PREF_SPEAKER_GAIN:
                 FileUtils.setValue(SPEAKER_GAIN_PATH, (int) value);
-                break;
-
-            case PREF_EARPIECE_GAIN:
-                FileUtils.setValue(EARPIECE_GAIN_PATH, (int) value);
                 break;
 
             case PREF_GPUBOOST:
