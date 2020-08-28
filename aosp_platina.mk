@@ -38,9 +38,6 @@ TARGET_INCLUDE_STOCK_ARCORE := true
 # Inherit some common Colt stuff.
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
-# Inherit MIUI Camera
-$(call inherit-product, vendor/xiaomi/MiuiCamera/config.mk)
-
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_NAME="platina" \
     TARGET_DEVICE="platina" \
