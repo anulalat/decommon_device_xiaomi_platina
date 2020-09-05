@@ -22,9 +22,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_platina.mk
+    $(LOCAL_DIR)/colt_platina.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_platina-eng \
-    lineage_platina-userdebug \
-    lineage_platina-user
+    colt_platina-eng \
+    colt_platina-userdebug \
+    colt_platina-user
