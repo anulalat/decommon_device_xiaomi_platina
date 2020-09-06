@@ -31,7 +31,7 @@ $(call inherit-product, device/xiaomi/platina/device.mk)
 
 # Inherit AOSP product configuration
 TARGET_BOOT_ANIMATION_RES := 1080x2280
-TARGET_INCLUDE_WIFI_EXT := true
+#TARGET_INCLUDE_WIFI_EXT := true
 
 # Inherit some common Colt stuff.
 $(call inherit-product, vendor/colt/config/common_full_phone.mk)
