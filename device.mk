@@ -546,10 +546,3 @@ PRODUCT_BOOT_JARS += \
 
 # Vendor files
 $(call inherit-product, vendor/xiaomi/platina/platina-vendor.mk)
-
-# LOS DEVICE
-PRODUCT_NAME := bliss_platina
-PRODUCT_DEVICE := platina
-PRODUCT_MODEL := Mi 8 Lite
-PRODUCT_BRAND := Xiaomi
-PRODUCT_MANUFACTURER := Xiaomi
